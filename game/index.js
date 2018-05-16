@@ -2,25 +2,22 @@ import {Map} from 'immutable'
 
 let board = Map();
 
-// board.setIn([0,0], '_')
-//      .setIn([0,1], '_')
-//      .setIn([0,2], '_')
-//      .setIn([1,0], '_')
-//      .setIn([1,1], '_')
-//      .setIn([1,2], '_')
-//      .setIn([2,0], '_')
-//      .setIn([2,1], '_')
-//      .setIn([2,2], '_')
+export const move = (player, coord) => {
+  return { type: "MOVE", position: coord, player };
+};
 
+export default function reducer(state = { turn: 'X', board: board }, action) {
+  const { type, position, player } = action;
+  const currentBoard = state.board;
 
-export default function reducer(state = { board: board}, action) {
-  // TODO
+  switch (type) {
+  case "MOVE":
+    const newBoard = currentBoard.setIn(position, player)
+    const newPlayer = player === "X" ? "O" : "X";
 
-
-  return state
-}
-
-
-const move = () => {
+    return { turn: newPlayer, board: newBoard }
+  default:
+    return state;
+  }
 
 }
